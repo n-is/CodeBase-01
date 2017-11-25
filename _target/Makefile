@@ -77,6 +77,7 @@ install :$(TARGET)
 
 clean :
 	@ rm -f $(OBJ)
+	@ rm -f $(TARGET)
 	@ echo "\t\t"Everything Cleaned Up
 
 cleaner : clean
