@@ -1,4 +1,5 @@
 #include "../includes/Lexer.h"
+#include "../includes/Token.h"
 #include "../utils/Error.h"
 
 #include <iostream>
@@ -250,7 +251,7 @@ Token * Lexer::getNextToken()
                 }
                 raise(Error::TokenError, "Undefined Token in Source Code");
         }
-        if(line_number_ < file_lines_) {
+        if(line_number_ < file_lines_ - 1) {
                 ++line_number_;
                 getNextLine();
                 return getNextToken();

@@ -1,0 +1,12 @@
+int fact(int n) :
+        ? n < 0 :
+                ^ -1;
+        !? n < 2 :
+                ^ 1;
+        ^ n * fact(n-1);
+
+int main() :
+        int f;
+        [] -> f;
+        [] <- fact(f);
+        ^ 0;

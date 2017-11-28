@@ -104,12 +104,32 @@ static std::string getTokenStr(TokenType t)
                         return "[]";
                 } break;
 
+                case TokenType::QUESTION : {
+                        return "?";
+                } break;
+
+                case TokenType::BANG : {
+                        return "!";
+                } break;
+
+                case TokenType::CARET : {
+                        return "^";
+                } break;
+
+                case TokenType::LEFT_ARROW : {
+                        return "<-";
+                } break;
+
+                case TokenType::RIGHT_ARROW : {
+                        return "->";
+                } break;
+
                 case TokenType::EOS : {
                         return "\\0";
                 } break;
 
                 default : {
-                        return "None";
+                        return "None Token";
                 }break;
         }
 }
