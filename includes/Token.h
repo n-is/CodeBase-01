@@ -31,7 +31,9 @@ enum class TokenType
         LITERAL,
         IDENTIFIER,
         OPERATOR,
-        KEYWORD
+        KEYWORD,
+
+        EOS
 };
 
 class Token : public TokenVisitable

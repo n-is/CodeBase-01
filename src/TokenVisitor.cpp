@@ -104,6 +104,10 @@ static std::string getTokenStr(TokenType t)
                         return "[]";
                 } break;
 
+                case TokenType::EOS : {
+                        return "\\0";
+                } break;
+
                 default : {
                         return "None";
                 }break;
