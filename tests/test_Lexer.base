@@ -1,3 +1,10 @@
+/*
+        This file is for testing the Lexer class.
+        So, don't make any changes to this file
+        until it is absolutely required and you
+        are absolutely sure.
+*/
+
 int fact(int n) :
         ? n < 0 :
                 ^ -1;

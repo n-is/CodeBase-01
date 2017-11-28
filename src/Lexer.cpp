@@ -252,7 +252,6 @@ Token * Lexer::getNextToken()
                 raise(Error::TokenError, "Undefined Token in Source Code");
         }
         if(line_number_ < file_lines_ - 1) {
-                ++line_number_;
                 getNextLine();
                 return getNextToken();
                 // return new Token(TokenType::NEWLINE);
@@ -305,6 +304,7 @@ void Lexer::advance()
 
 void Lexer::getNextLine()
 {
+        ++line_number_;
         curr_index_ = 0;
         text_ = source_lines_.at(line_number_);
         len_ = text_.length();
@@ -313,8 +313,12 @@ void Lexer::getNextLine()
 
 void Lexer::skipComment()
 {
-        while(curr_char_ != '*' && peek(1) == '/')
+        while(curr_char_ != '*' && peek(1) != '/'){
                 advance();
+                if(curr_char_ == '\0') {
+                        getNextLine();
+                }
+        }
         advance();
         advance();
 }
