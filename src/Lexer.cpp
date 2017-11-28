@@ -34,7 +34,7 @@ unsigned int Lexer::getCurrentLineNumber() const
         "->"    : RIGHT_ARROW,
         "-"     : MINUS,
         "/="    : DIVIDE_EQ,
-        "/*"    : skip Comments,
+        C-Style Comments skip,
         "/"     : DIVIDE,
         "*="    : MULTIPLY_EQ,
         "*"     : MULTIPLY,
