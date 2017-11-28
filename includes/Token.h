@@ -25,8 +25,8 @@ enum class TokenType
         QUESTION,
         BANG,
         CARET,
-        LEFT_ARROW,
-        RIGHT_ARROW,
+        LEFT_ARROW,     // <-
+        RIGHT_ARROW,    // ->
 
         LITERAL,
         IDENTIFIER,

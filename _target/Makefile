@@ -10,11 +10,13 @@ TARGET = ../tests/$(TARGET_NAME)
 
 CXXSRC = \
 	$(SRCDIR)/TokenVisitor.cpp \
+	$(SRCDIR)/Lexer.cpp \
 
 TSTSRC = \
 	$(TSTDIR)/main_test.cpp \
 	$(TSTDIR)/test_Error.cpp \
 	$(TSTDIR)/test_Token.cpp \
+	$(TSTDIR)/test_Lexer.cpp \
 
 UTILSRC = \
 	$(UTILDIR)/Error.cpp \
