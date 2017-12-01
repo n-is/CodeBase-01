@@ -96,5 +96,9 @@ TEST_CASE("Token Class is Checked", "[Token]")
         t = new Token(type);
         REQUIRE(t->getTokenType() == TokenType::OPERATOR);
 
+        type = TokenType::EOS;
+        t = new Token(type);
+        REQUIRE(t->getTokenType() == TokenType::EOS);
+
         delete t;
 }
