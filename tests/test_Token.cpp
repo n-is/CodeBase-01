@@ -8,7 +8,7 @@
 /* Watching the Token Class Preety Printing as we want */
 TEST_CASE("Watching the Token Class", "[Token]")
 {
-        TokenType type = TokenType::SEMICOLON;
+        TokenType type = TokenType::COLON;
         
         std::unique_ptr<Token> t(new Token(type));
         std::unique_ptr<TokenVisitor> printer(new TokenPrinter());
@@ -20,8 +20,8 @@ TEST_CASE("Watching the Token Class", "[Token]")
 
 TEST_CASE("Token Class is Checked", "[Token]")
 {
-        TokenType type = TokenType::SEMICOLON;
-        Token * t = new Token(type);
+        TokenType type;
+        Token * t = new Token(TokenType::SEMICOLON);
         REQUIRE(t->getTokenType() == TokenType::SEMICOLON);
 
         type = TokenType::COLON;

@@ -1,0 +1,19 @@
+/*
+        This file is for testing the Lexer class.
+        So, don't make any changes to this file
+        until it is absolutely required and you
+        are absolutely sure.
+*/
+
+int fact(int n) :
+        ? n < 0 :
+                ^ -1;
+        !? n < 2 :
+                ^ 1;
+        ^ n * fact(n-1);
+
+int main() :
+        int f;
+        [] -> f;
+        [] <- fact(f);
+        ^ 0;

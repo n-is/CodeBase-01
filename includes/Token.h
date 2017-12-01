@@ -25,8 +25,8 @@ enum class TokenType
         QUESTION,
         BANG,
         CARET,
-        LEFT_ARROW,
-        RIGHT_ARROW,
+        LEFT_ARROW,     // <-
+        RIGHT_ARROW,    // ->
 
         LITERAL,
         IDENTIFIER,
@@ -39,7 +39,7 @@ enum class TokenType
 class Token : public TokenVisitable
 {
 private:
-        TokenType & tokType;
+        TokenType tokType;
 public:
         Token(TokenType tokType) :
         tokType(tokType) { }
