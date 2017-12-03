@@ -1,7 +1,7 @@
 #include "../includes/Lexer.h"
 #include "../includes/TokenVisitor.h"
 
-#include "/usr/include/externals/catch.hpp"
+#include "catch.hpp"
 
 #include <iostream>
 #include <memory>
