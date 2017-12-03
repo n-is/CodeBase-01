@@ -1,4 +1,4 @@
-# Learining To Write A Compiler
+# Learning To Write A Compiler
 -------------------------------
 
 <p align="center">
