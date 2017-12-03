@@ -1,5 +1,5 @@
-#Learining To Write A Compiler
------------------------------------------------------------------
+# Learning To Write A Compiler
+-------------------------------
 
 <p align="center">
         <a href="https://doc.lagout.org/programmation/C/CPP101.pdf"><img src="https://img.shields.io/badge/code_style-standard-brightgreen.svg">
@@ -19,7 +19,7 @@ The compiler will initially have only data types and not any data structures. Th
 <b><i>Future Improvements : </b></i>
 <p>
         The motivation behind creating this language is to be able to create a language that is extendible by the users. So after we have learned to create a basic compiler, we will focus on making it an extensible programming language.
-        
+</p><p> 
         We also hope to create appropriate files to export to text editors for syntax highlighting and formatting according to the language.
 </p>
 

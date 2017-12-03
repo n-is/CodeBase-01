@@ -1,4 +1,4 @@
-#include "/usr/include/externals/catch.hpp"
+#include "catch.hpp"
 #include "../utils/Error.h"
 
 TEST_CASE("Error Handling functions are Checked", "[Error]")
