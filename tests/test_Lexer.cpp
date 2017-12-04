@@ -33,11 +33,30 @@ TEST_CASE("Checking Token Factory (Lexer) class", "[Lexer]")
         unique_ptr<Token> tok(lex->getNextToken());
 
         REQUIRE(tok->getTokenType() == TokenType::KEYWORD);
-        auto k = static_cast<KeyWord *>(tok.release());
-        REQUIRE(k->getValue() == "int");
+        auto a0 = static_cast<KeyWord *>(tok.release());
+        REQUIRE(a0->getValue() == "int");
 
         tok.reset(lex->getNextToken());
         REQUIRE(tok->getTokenType() == TokenType::IDENTIFIER);
-        auto i = static_cast<Identifier *>(tok.release());
-        REQUIRE(i->getValue() == "fact");
+        auto a1 = static_cast<Identifier *>(tok.release());
+        REQUIRE(a1->getValue() == "fact");
+
+        tok.reset(lex->getNextToken());
+        REQUIRE(tok->getTokenType() == TokenType::LPAREN);
+
+        tok.reset(lex->getNextToken());
+        REQUIRE(tok->getTokenType() == TokenType::KEYWORD);
+        auto a2 = static_cast<KeyWord *>(tok.release());
+        REQUIRE(a2->getValue() == "int");
+
+        tok.reset(lex->getNextToken());
+        REQUIRE(tok->getTokenType() == TokenType::IDENTIFIER);
+        auto a3 = static_cast<Identifier *>(tok.release());
+        REQUIRE(a3->getValue() == "n");
+
+        tok.reset(lex->getNextToken());
+        REQUIRE(tok->getTokenType() == TokenType::RPAREN);
+
+        tok.reset(lex->getNextToken());
+        REQUIRE(tok->getTokenType() == TokenType::COLON);
 }

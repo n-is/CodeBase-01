@@ -20,11 +20,11 @@ enum class TokenType
         LCURLY, RCURLY,
         LSQUARE, RSQUARE,
         DOT,
-        SCREEN,
+        SCREEN,         // []
 
-        QUESTION,
-        BANG,
-        CARET,
+        QUESTION,       // ?
+        BANG,           // !
+        CARET,          // ^
         LEFT_ARROW,     // <-
         RIGHT_ARROW,    // ->
 
