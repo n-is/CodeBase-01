@@ -231,6 +231,9 @@ std::unique_ptr<AST> Parser::statement()
         else if(curr_tok_->getTokenType() == TokenType::DATA_TYPE) {
                 return declaration_stmt();
         }
+        else if(curr_tok_->getTokenType() == TokenType::LCURLY) {
+                return body();
+        }
         return nullptr;
 }
 
