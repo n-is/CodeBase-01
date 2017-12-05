@@ -290,6 +290,16 @@ Token * Lexer::getWord()
                 if(w == word)
                         return new KeyWord(word);
         }
+        for(std::string w : types) {
+                if(w == word) {
+                        if(w == "int") {
+                                return new DataType(Type::INT);
+                        }
+                        else if(w == "float") {
+                                return new DataType(Type::FLOAT);
+                        }
+                }
+        }
         return new Identifier(word);
 }
 

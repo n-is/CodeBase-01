@@ -32,6 +32,7 @@ enum class TokenType
         IDENTIFIER,
         OPERATOR,
         KEYWORD,
+        DATA_TYPE,
 
         EOS
 };
@@ -209,5 +210,24 @@ public:
 private:
         std::string value;
 };
+
+enum class Type
+{
+        INT,
+        FLOAT
+};
+
+class DataType : public Token
+{
+public:
+        DataType(Type t) :
+        Token(TokenType::DATA_TYPE), type(t) { }
+
+        Type getType() {
+                return type;
+        }
+private:
+        Type type;
+}
 
 #endif /* !TOKEN_H_ */
