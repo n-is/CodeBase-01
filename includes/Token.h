@@ -226,8 +226,10 @@ public:
         Type getType() {
                 return type;
         }
+
+        void Accept(TokenVisitor & visitor) { visitor.visit(this); }
 private:
         Type type;
-}
+};
 
 #endif /* !TOKEN_H_ */

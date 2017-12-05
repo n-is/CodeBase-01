@@ -32,9 +32,9 @@ TEST_CASE("Checking Token Factory (Lexer) class", "[Lexer]")
         unique_ptr<Lexer> lex(new Lexer("test_Lexer.base"));
         unique_ptr<Token> tok(lex->getNextToken());
 
-        REQUIRE(tok->getTokenType() == TokenType::KEYWORD);
-        auto a0 = static_cast<KeyWord *>(tok.release());
-        REQUIRE(a0->getValue() == "int");
+        REQUIRE(tok->getTokenType() == TokenType::DATA_TYPE);
+        auto a0 = static_cast<DataType *>(tok.release());
+        REQUIRE(a0->getType() == Type::INT);
 
         tok.reset(lex->getNextToken());
         REQUIRE(tok->getTokenType() == TokenType::IDENTIFIER);
@@ -45,9 +45,9 @@ TEST_CASE("Checking Token Factory (Lexer) class", "[Lexer]")
         REQUIRE(tok->getTokenType() == TokenType::LPAREN);
 
         tok.reset(lex->getNextToken());
-        REQUIRE(tok->getTokenType() == TokenType::KEYWORD);
-        auto a2 = static_cast<KeyWord *>(tok.release());
-        REQUIRE(a2->getValue() == "int");
+        REQUIRE(tok->getTokenType() == TokenType::DATA_TYPE);
+        auto a2 = static_cast<DataType *>(tok.release());
+        REQUIRE(a2->getType() == Type::INT);
 
         tok.reset(lex->getNextToken());
         REQUIRE(tok->getTokenType() == TokenType::IDENTIFIER);

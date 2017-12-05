@@ -9,6 +9,7 @@ class AssignmentOperator;
 class RelationOperator;
 class Identifier;
 class KeyWord;
+class DataType;
 
 
 class TokenVisitor
@@ -24,6 +25,7 @@ public:
         virtual void visit(RelationOperator *) = 0;
         virtual void visit(Identifier *) = 0;
         virtual void visit(KeyWord *) = 0;
+        virtual void visit(DataType *) = 0;
 };
 
 class TokenPrinter : public TokenVisitor
@@ -37,6 +39,7 @@ public:
         void visit(RelationOperator *);
         void visit(Identifier *);
         void visit(KeyWord *);
+        void visit(DataType *);
 };
 
 #endif /* !TOKEN_VISITOR_H_ */

@@ -56,6 +56,18 @@ void TokenPrinter::visit(KeyWord * tok)
         std::cout << "KeyWord(" << tokValue << ")";
 }
 
+void TokenPrinter::visit(DataType * tok)
+{
+        std::cout << "Type(";
+        if(tok->getType() == Type::INT) {
+                std::cout << "int";
+        }
+        else if(tok->getType() == Type::FLOAT) {
+                std::cout << "float";
+        }
+        std::cout << ")";
+}
+
 
 static std::string getTokenStr(TokenType t)
 {
