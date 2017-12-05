@@ -163,14 +163,18 @@ std::unique_ptr<AST> Parser::expr()
 
 std::unique_ptr<AST> Parser::assignment_stmt()
 {
-        auto lvalue = identifier();
+        assert(curr_tok_->getTokenType() == TokenType::IDENTIFIER);
+        auto i = static_cast<Identifier *>(curr_tok_);
+        std::string val = i->getValue();
+        as_expected(TokenType::IDENTIFIER);
+
         assert(curr_tok_->getTokenType() == TokenType::OPERATOR);
         auto op_tok = static_cast<Operator *>(curr_tok_);
         assert(op_tok->getOperatorType() == OperatorType::ASSIGNMENT);
         as_expected(TokenType::OPERATOR);
-        lvalue = std::make_unique<Binary>(std::move(lvalue), *op_tok, std::move(expr()));
+        auto assignment = std::make_unique<AssignmentStatement>(val, *op_tok, std::move(expr()));
         as_expected(TokenType::SEMICOLON);
-        return lvalue;
+        return assignment;
 }
 
 std::unique_ptr<AST> Parser::selection_stmt()

@@ -92,6 +92,20 @@ private:
         std::unique_ptr<AST> rvalue;
 };
 
+class AssignmentStatement : public AST
+{
+public:
+        AssignmentStatement(std::string & lvalue, Token & tok, std::unique_ptr<AST> rvalue) :
+        lvalue(std::move(lvalue)), tok(tok), rvalue(std::move(rvalue)) { };
+
+        // void Accept(AST_Visitor & visitor) { visitor.visit(this); }
+
+private:
+        std::string lvalue;
+        Token tok;
+        std::unique_ptr<AST> rvalue;
+};
+
 class IfStatement : public AST
 {
 public:
