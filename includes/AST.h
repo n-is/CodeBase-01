@@ -11,7 +11,7 @@ class AST_Visitable
 {
 public:
         virtual ~AST_Visitable() { };
-        virtual void Accept(AST_Visitor & visitor) = 0;
+        // virtual void Accept(AST_Visitor & visitor) = 0;
 };
 
 class AST : public AST_Visitable
@@ -127,12 +127,12 @@ private:
 class Declaration : public AST
 {
 public:
-        Declaration(Token & tok, std::vector<std::unique_ptr<AST>> expr_list) :
-        tok(tok), expr(std::move(expr)) { }
+        Declaration(Token & tok, std::vector<std::unique_ptr<AST>> vars) :
+        tok(tok), vars(std::move(vars)) { }
 
 private:
         Token tok;
-        std::vector<std::unique_ptr<AST>> expr;
+        std::vector<std::unique_ptr<AST>> vars;
 };
 
 class CompoundStatement : public AST

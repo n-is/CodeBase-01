@@ -11,6 +11,7 @@ TARGET = ../tests/$(TARGET_NAME)
 CXXSRC = \
 	$(SRCDIR)/TokenVisitor.cpp \
 	$(SRCDIR)/Lexer.cpp \
+	$(SRCDIR)/Parser.cpp \
 
 TSTSRC = \
 	$(TSTDIR)/main_test.cpp \
@@ -35,7 +36,7 @@ VPATH=%.cpp $(SRCDIR) ../ $(TSTDIR) $(UTILDIR)
 CC = gcc
 
 CXX = g++
-CXXFLAGS =  -Wall -g -std=c++11 -O1 -DTEST
+CXXFLAGS =  -Wall -g -std=c++14 -O1 -DTEST
 
 OBJ = $(patsubst $(SRCDIR)/%.cpp, %.o, $(CXXSRC)) $(patsubst $(TSTDIR)/%.cpp, %.o, $(TSTSRC)) \
 	$(patsubst $(UTILDIR)/%.cpp, %.o, $(UTILSRC))

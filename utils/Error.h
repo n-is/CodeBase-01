@@ -13,5 +13,6 @@ enum class Error
 
 int raise(Error e);
 int raise(Error e, std::string message);
+int raise(Error e, std::string message, int atLine);
 
 #endif
