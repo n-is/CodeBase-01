@@ -11,9 +11,7 @@ lex_(lex_)
 
 Parser::~Parser()
 {
-        if(curr_tok_) {
-                delete curr_tok_;
-        }
+        delete curr_tok_;
 }
 
 std::unique_ptr<AST> Parser::parse()
@@ -60,17 +58,18 @@ std::unique_ptr<AST> Parser::literal()
 std::unique_ptr<AST> Parser::paren_expr()
 {
         as_expected(TokenType::LPAREN);
-        auto i0 = expr();
+        auto expression = expr();
         as_expected(TokenType::RPAREN);
-        return i0;
+        return expression;
 }
 
 std::unique_ptr<AST> Parser::unary_expr()
 {
-        auto op = static_cast<Operator *>(curr_tok_);
-        if(op->getOperatorType() == OperatorType::PLUS || 
-           op->getOperatorType() == OperatorType::MINUS) {
-                   return std::make_unique<Unary>(*curr_tok_, std::move(primary_expr()));
+        auto op_tok = static_cast<Operator *>(curr_tok_);
+        if(op_tok->getOperatorType() == OperatorType::PLUS || 
+           op_tok->getOperatorType() == OperatorType::MINUS) {
+                   as_expected(TokenType::OPERATOR);
+                   return std::make_unique<Unary>(*op_tok, std::move(primary_expr()));
         }
         return nullptr;
 }
@@ -97,12 +96,12 @@ std::unique_ptr<AST> Parser::mult_expr()
 {
         auto earlier_expr = primary_expr();
         while(curr_tok_->getTokenType() == TokenType::OPERATOR) {
-                auto t0 = static_cast<Operator *>(curr_tok_);
-                if(t0->getOperatorType() == OperatorType::MULTIPLY ||
-                   t0->getOperatorType() == OperatorType::DIVIDE ||
-                   t0->getOperatorType() == OperatorType::MODULO) {
+                auto op_tok = static_cast<Operator *>(curr_tok_);
+                if(op_tok->getOperatorType() == OperatorType::MULTIPLY ||
+                   op_tok->getOperatorType() == OperatorType::DIVIDE ||
+                   op_tok->getOperatorType() == OperatorType::MODULO) {
                         as_expected(TokenType::OPERATOR);
-                        earlier_expr = std::make_unique<Binary>(std::move(mult_expr()), *curr_tok_, std::move(earlier_expr));
+                        earlier_expr = std::make_unique<Binary>(std::move(mult_expr()), *op_tok, std::move(earlier_expr));
                 } else {
                         break;
                 }
@@ -114,11 +113,11 @@ std::unique_ptr<AST> Parser::add_expr()
 {
         auto earlier_expr = mult_expr();
         while(curr_tok_->getTokenType() == TokenType::OPERATOR) {
-                auto t0 = static_cast<Operator *>(curr_tok_);
-                if(t0->getOperatorType() == OperatorType::PLUS ||
-                   t0->getOperatorType() == OperatorType::MINUS) {
+                auto op_tok = static_cast<Operator *>(curr_tok_);
+                if(op_tok->getOperatorType() == OperatorType::PLUS ||
+                   op_tok->getOperatorType() == OperatorType::MINUS) {
                         as_expected(TokenType::OPERATOR);
-                        earlier_expr = std::make_unique<Binary>(std::move(add_expr()), *curr_tok_, std::move(earlier_expr));
+                        earlier_expr = std::make_unique<Binary>(std::move(add_expr()), *op_tok, std::move(earlier_expr));
                 } else {
                         break;
                 }
@@ -130,10 +129,10 @@ std::unique_ptr<AST> Parser::relation_expr()
 {
         auto earlier_expr = add_expr();
         while(curr_tok_->getTokenType() == TokenType::OPERATOR) {
-                auto t0 = static_cast<Operator *>(curr_tok_);
-                if(t0->getOperatorType() == OperatorType::RELATION) {
+                auto op_tok = static_cast<Operator *>(curr_tok_);
+                if(op_tok->getOperatorType() == OperatorType::RELATION) {
                         as_expected(TokenType::OPERATOR);
-                        earlier_expr = std::make_unique<Binary>(std::move(relation_expr()), *curr_tok_, std::move(earlier_expr));
+                        earlier_expr = std::make_unique<Binary>(std::move(relation_expr()), *op_tok, std::move(earlier_expr));
                 } else {
                         break;
                 }
@@ -145,11 +144,11 @@ std::unique_ptr<AST> Parser::equality_expr()
 {
         auto earlier_expr = relation_expr();
         while(curr_tok_->getTokenType() == TokenType::OPERATOR) {
-                auto t0 = static_cast<Operator *>(curr_tok_);
-                if(t0->getOperatorType() == OperatorType::EQUALS ||
-                   t0->getOperatorType() == OperatorType::NOT_EQUALS) {
+                auto op_tok = static_cast<Operator *>(curr_tok_);
+                if(op_tok->getOperatorType() == OperatorType::EQUALS ||
+                   op_tok->getOperatorType() == OperatorType::NOT_EQUALS) {
                         as_expected(TokenType::OPERATOR);
-                        earlier_expr = std::make_unique<Binary>(std::move(equality_expr()), *curr_tok_, std::move(earlier_expr));
+                        earlier_expr = std::make_unique<Binary>(std::move(equality_expr()), *op_tok, std::move(earlier_expr));
                 } else {
                         break;
                 }
@@ -166,10 +165,10 @@ std::unique_ptr<AST> Parser::assignment_stmt()
 {
         auto lvalue = identifier();
         assert(curr_tok_->getTokenType() == TokenType::OPERATOR);
-        auto t0 = static_cast<Operator *>(curr_tok_);
-        assert(t0->getOperatorType() == OperatorType::ASSIGNMENT);
+        auto op_tok = static_cast<Operator *>(curr_tok_);
+        assert(op_tok->getOperatorType() == OperatorType::ASSIGNMENT);
         as_expected(TokenType::OPERATOR);
-        lvalue = std::make_unique<Binary>(std::move(lvalue), *curr_tok_, std::move(expr()));
+        lvalue = std::make_unique<Binary>(std::move(lvalue), *op_tok, std::move(expr()));
         as_expected(TokenType::SEMICOLON);
         return lvalue;
 }
