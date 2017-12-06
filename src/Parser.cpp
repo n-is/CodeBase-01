@@ -3,6 +3,8 @@
 
 #include <cassert>
 
+unsigned int CompoundStatement::scope = 0;
+
 Parser::Parser(Lexer & lex_) :
 lex_(lex_)
 {
@@ -247,6 +249,7 @@ std::unique_ptr<AST> Parser::statement()
 std::unique_ptr<AST> Parser::body()
 {
         as_expected(TokenType::LCURLY);
+        ++CompoundStatement::scope;
         std::vector<std::unique_ptr<AST>> statement_list;
         while(curr_tok_->getTokenType() != TokenType::RCURLY) {
                 if(auto stmt = statement()) {
@@ -254,5 +257,6 @@ std::unique_ptr<AST> Parser::body()
                 }
         }
         as_expected(TokenType::RCURLY);
+        --CompoundStatement::scope;
         return std::make_unique<CompoundStatement>(std::move(statement_list));
 }

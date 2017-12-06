@@ -68,17 +68,32 @@ void AST_Printer::visit(ReturnStatement * ast_node)
 
 void AST_Printer::visit(Declaration * ast_node)
 {
+        ast_node->getToken()->Accept(*token_plotter);
+        unsigned int numberOfVariables = ast_node->getVars().size();
+        for(auto & var : ast_node->getVars()) {
+                cout << ' ';
+                var->Accept(*this);
+                if(--numberOfVariables) {
+                        cout << ',';
+                }
+        }
+        cout << ';';
+}
 
+static void printTabs(unsigned int n) {
+        while(n--)
+                cout << '\t';
 }
 
 void AST_Printer::visit(CompoundStatement * ast_node)
 {
         cout << "{\n";
         for(auto& stmt : ast_node->getStatementList()) {
-                cout << "\t";
+                printTabs(ast_node->getScopeLevel() + 1);
                 stmt->Accept(*this);
                 cout << endl;
         }
+        printTabs(ast_node->getScopeLevel());
         cout << "}\n";
 }
 

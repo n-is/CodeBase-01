@@ -172,7 +172,7 @@ private:
 class Declaration : public AST
 {
 public:
-        Declaration(Token & tok, std::vector<std::unique_ptr<AST>> vars) :
+        Declaration(DataType & tok, std::vector<std::unique_ptr<AST>> vars) :
         tok(tok), vars(std::move(vars)) { }
 
         Token * getToken() { return &tok; }
@@ -181,7 +181,7 @@ public:
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
 private:
-        Token tok;
+        DataType tok;
         std::vector<std::unique_ptr<AST>> vars;
 };
 
@@ -189,14 +189,18 @@ class CompoundStatement : public AST
 {
 public:
         CompoundStatement(std::vector<std::unique_ptr<AST>> statement_list) :
-        statement_list(std::move(statement_list)) { }
+        statement_list(std::move(statement_list)), scopeLevel(CompoundStatement::scope) { }
 
         std::vector<std::unique_ptr<AST>> const & getStatementList() const { return statement_list; }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
+        unsigned int getScopeLevel() const { return scopeLevel; }
+
+        static unsigned int scope;
 private:
         std::vector<std::unique_ptr<AST>> statement_list;
+        unsigned int scopeLevel;
 };
 
 class FuncCall : public AST
@@ -252,7 +256,8 @@ public:
         Program(std::vector<std::unique_ptr<AST>> functions) :
         functions(std::move(functions)) { }
 
-        std::vector<std::unique_ptr<AST>> const & getFunctions() const { return functions; }
+        std::vector<std::unique_ptr<AST>> const & getFunctions() const { return functions; 
+        }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
