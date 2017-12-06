@@ -12,6 +12,7 @@ CXXSRC = \
 	$(SRCDIR)/TokenVisitor.cpp \
 	$(SRCDIR)/Lexer.cpp \
 	$(SRCDIR)/Parser.cpp \
+	$(SRCDIR)/AST_Printer.cpp \
 
 TSTSRC = \
 	$(TSTDIR)/main_test.cpp \

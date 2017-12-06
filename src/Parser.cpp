@@ -171,8 +171,9 @@ std::unique_ptr<AST> Parser::assignment_stmt()
         assert(curr_tok_->getTokenType() == TokenType::OPERATOR);
         auto op_tok = static_cast<Operator *>(curr_tok_);
         assert(op_tok->getOperatorType() == OperatorType::ASSIGNMENT);
+        auto assign_op = static_cast<AssignmentOperator *>(op_tok);
         as_expected(TokenType::OPERATOR);
-        auto assignment = std::make_unique<AssignmentStatement>(val, *op_tok, std::move(expr()));
+        auto assignment = std::make_unique<AssignmentStatement>(val, *assign_op, std::move(expr()));
         as_expected(TokenType::SEMICOLON);
         return assignment;
 }

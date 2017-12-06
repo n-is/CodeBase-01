@@ -11,54 +11,54 @@ static std::string getRelationStr(RelationType rltn);
 void TokenPrinter::visit(Token * tok)
 {
         std::string tokValue = getTokenStr(tok->getTokenType());
-        std::cout << "Token(" << tokValue << ")";
+        std::cout << "(" << tokValue << ")";
 }
 
 void TokenPrinter::visit(IntegerLiteral * tok)
 {
         int tokValue = tok->getValue();
-        std::cout << "Int(" << tokValue << ")";
+        std::cout << "(" << tokValue << ")";
 }
 
 void TokenPrinter::visit(FloatLiteral * tok)
 {
         float tokValue = tok->getValue();
-        std::cout << "Float(" << tokValue << ")";
+        std::cout << "(" << tokValue << ")";
 }
 
 void TokenPrinter::visit(Operator * tok)
 {
         std::string tokValue = getOperatorStr(tok->getOperatorType());
-        std::cout << "Operator(" << tokValue << ")";
+        std::cout << "(" << tokValue << ")";
 }
 
 void TokenPrinter::visit(AssignmentOperator * tok)
 {
         AssignmentType tokValue = tok->getType();
-        std::cout << "Assignment(" << getAssignmentStr(tokValue) << ")";
+        std::cout << "(" << getAssignmentStr(tokValue) << ")";
 }
 
 void TokenPrinter::visit(RelationOperator * tok)
 {
         RelationType tokValue = tok->getType();
-        std::cout << "Relation(" << getRelationStr(tokValue) << ")";
+        std::cout << "(" << getRelationStr(tokValue) << ")";
 }
 
 void TokenPrinter::visit(Identifier * tok)
 {
         std::string tokValue = tok->getValue();
-        std::cout << "Identifier(" << tokValue << ")";
+        std::cout << "(" << tokValue << ")";
 }
 
 void TokenPrinter::visit(KeyWord * tok)
 {
         std::string tokValue = tok->getValue();
-        std::cout << "KeyWord(" << tokValue << ")";
+        std::cout << "(" << tokValue << ")";
 }
 
 void TokenPrinter::visit(DataType * tok)
 {
-        std::cout << "Type(";
+        std::cout << "(";
         if(tok->getType() == Type::INT) {
                 std::cout << "int";
         }
