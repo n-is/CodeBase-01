@@ -6,7 +6,6 @@
 static std::string getTokenStr(TokenType t);
 static std::string getOperatorStr(OperatorType op);
 static std::string getAssignmentStr(AssignmentType assign);
-static std::string getRelationStr(RelationType rltn);
 
 void TokenPrinter::visit(Token * tok)
 {
@@ -36,12 +35,6 @@ void TokenPrinter::visit(AssignmentOperator * tok)
 {
         AssignmentType tokValue = tok->getType();
         std::cout << "(" << getAssignmentStr(tokValue) << ")";
-}
-
-void TokenPrinter::visit(RelationOperator * tok)
-{
-        RelationType tokValue = tok->getType();
-        std::cout << "(" << getRelationStr(tokValue) << ")";
 }
 
 void TokenPrinter::visit(Identifier * tok)
@@ -169,6 +162,18 @@ static std::string getOperatorStr(OperatorType op)
         else if(op == OperatorType::NOT_EQUALS) {
                 return "!=";
         }
+        else if (op == OperatorType::LESSER) {
+                return "<";
+        }
+        else if (op == OperatorType::GREATER) {
+                return ">";
+        }
+        else if (op == OperatorType::LESSER_EQUALS) {
+                return "<=";
+        }
+        else if (op == OperatorType::GREATER_EQUALS) {
+                return ">=";
+        }
         return "None Operator";
 }
 
@@ -195,25 +200,5 @@ static std::string getAssignmentStr(AssignmentType assign)
                 } break;
                 default :
                         return "None Operator";
-        }
-}
-
-static std::string getRelationStr(RelationType rltn)
-{
-        switch(rltn) {
-                case RelationType::LESSER : {
-                        return "<";
-                } break;
-                case RelationType::GREATER : {
-                        return ">";
-                } break;
-                case RelationType::LESSER_EQUALS : {
-                        return "<=";
-                } break;
-                case RelationType::GREATER_EQUALS : {
-                        return ">=";
-                } break;
-                default :
-                        return "None Relation Operator";
         }
 }

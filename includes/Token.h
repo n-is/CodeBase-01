@@ -109,11 +109,15 @@ enum class OperatorType
         DIVIDE,
         MODULO,
 
+        LESSER,
+        GREATER,
+        LESSER_EQUALS,
+        GREATER_EQUALS,
+
         EQUALS,
         NOT_EQUALS,
 
-        ASSIGNMENT,
-        RELATION
+        ASSIGNMENT
 };
 
 class Operator : public Token
@@ -151,29 +155,6 @@ public:
 
         AssignmentType getType() {
                 return assignmentType;
-        }
-
-        void Accept(TokenVisitor & visitor) { visitor.visit(this); }
-};
-
-enum class RelationType
-{
-        LESSER,
-        GREATER,
-        LESSER_EQUALS,
-        GREATER_EQUALS
-};
-
-class RelationOperator : public Operator
-{
-private:
-        RelationType relationType;
-public:
-        RelationOperator(RelationType type) :
-        Operator(OperatorType::RELATION), relationType(type) { }
-
-        RelationType getType() {
-                return relationType;
         }
 
         void Accept(TokenVisitor & visitor) { visitor.visit(this); }

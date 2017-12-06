@@ -130,7 +130,10 @@ std::unique_ptr<AST> Parser::relation_expr()
         auto earlier_expr = add_expr();
         while(curr_tok_->getTokenType() == TokenType::OPERATOR) {
                 auto op_tok = static_cast<Operator *>(curr_tok_);
-                if(op_tok->getOperatorType() == OperatorType::RELATION) {
+                if(op_tok->getOperatorType() == OperatorType::LESSER ||
+                   op_tok->getOperatorType() == OperatorType::LESSER_EQUALS ||
+                   op_tok->getOperatorType() == OperatorType::GREATER ||
+                   op_tok->getOperatorType() == OperatorType::GREATER_EQUALS) {
                         as_expected(TokenType::OPERATOR);
                         earlier_expr = std::make_unique<Binary>(std::move(relation_expr()), *op_tok, std::move(earlier_expr));
                 } else {
