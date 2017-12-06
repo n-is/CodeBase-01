@@ -26,7 +26,7 @@ public:
         Int(int value) :
         value(value) { };
 
-        int getValue() {
+        int getValue() const {
                 return value;
         }
 
@@ -42,7 +42,7 @@ public:
         Float(float value) :
         value(value) { };
 
-        float getValue() {
+        float getValue() const {
                 return value;
         }
 
@@ -58,7 +58,7 @@ public:
         Id(std::string value) :
         value(value) { };
 
-        std::string getValue() {
+        std::string getValue() const {
                 return value;
         }
 
@@ -75,7 +75,7 @@ public:
         Unary(Operator & tok, std::unique_ptr<AST> expr) :
         tok(tok), expr(std::move(expr)) { }
 
-        AST * getExpr() { return expr.get(); }
+        AST * getExpr() const { return expr.get(); }
 
         Token * getToken() { return &tok; }
 
@@ -92,6 +92,10 @@ public:
         Binary(std::unique_ptr<AST> lvalue, Operator & tok, std::unique_ptr<AST> rvalue) :
         lvalue(std::move(lvalue)), tok(tok), rvalue(std::move(rvalue)) { };
 
+        AST * getLvalue() const { return lvalue.get(); }
+        Token * getToken() { return &tok; }
+        AST * getRvalue() const { return rvalue.get(); }
+
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
 private:
@@ -106,9 +110,9 @@ public:
         AssignmentStatement(std::string & lvalue, AssignmentOperator & tok, std::unique_ptr<AST> rvalue) :
         lvalue(std::move(lvalue)), tok(tok), rvalue(std::move(rvalue)) { };
 
-        std::string getLvalue() { return lvalue; }
+        std::string getLvalue() const { return lvalue; }
         Token * getToken() { return &tok; }
-        AST * getRvalue() { return rvalue.get(); }
+        AST * getRvalue() const { return rvalue.get(); }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
@@ -124,6 +128,9 @@ public:
         IfStatement(std::unique_ptr<AST> condition, std::unique_ptr<AST> body) :
         condition(std::move(condition)), body(std::move(body)) { }
 
+        AST * getCondition() const { return condition.get(); }
+        AST * getBody() const { return body.get(); }
+
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
 private:
@@ -137,6 +144,10 @@ public:
         WhileStatement(std::unique_ptr<AST> condition, std::unique_ptr<AST> body) :
         condition(std::move(condition)), body(std::move(body)) { }
 
+        AST * getCondition() const { return condition.get(); }
+        AST * getBody() const { return body.get(); }
+
+        
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
 private:
@@ -148,6 +159,8 @@ class ReturnStatement : public AST
 public:
         ReturnStatement(std::unique_ptr<AST> expr) :
         expr(std::move(expr)) { }
+
+        AST * getExpr() const { return expr.get(); }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
@@ -162,6 +175,9 @@ public:
         Declaration(Token & tok, std::vector<std::unique_ptr<AST>> vars) :
         tok(tok), vars(std::move(vars)) { }
 
+        Token * getToken() { return &tok; }
+        std::vector<std::unique_ptr<AST>> const & getVars() const { return vars; }
+
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
 private:
@@ -175,7 +191,7 @@ public:
         CompoundStatement(std::vector<std::unique_ptr<AST>> statement_list) :
         statement_list(std::move(statement_list)) { }
 
-        std::vector<std::unique_ptr<AST>> & getStatementList() { return statement_list; }
+        std::vector<std::unique_ptr<AST>> const & getStatementList() const { return statement_list; }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
@@ -186,13 +202,16 @@ private:
 class FuncCall : public AST
 {
 public:
-        FuncCall(std::string & callee, std::vector<std::unique_ptr<AST>> args) :
-        callee(callee), args(std::move(args)) { }
+        FuncCall(std::string & func_name, std::vector<std::unique_ptr<AST>> args) :
+        func_name(func_name), args(std::move(args)) { }
+
+        std::string getFuncName() const { return func_name; }
+        std::vector<std::unique_ptr<AST>> const & getArgs() const { return args; }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
 private:
-        std::string callee;
+        std::string func_name;
         std::vector<std::unique_ptr<AST>> args;
 };
 
@@ -201,6 +220,9 @@ class Prototype : public AST
 public:
         Prototype(std::string func_name, std::vector<std::unique_ptr<AST>> args) :
         func_name(func_name), args(std::move(args)) { }
+
+        std::string getFuncName() const { return func_name; }
+        std::vector<std::unique_ptr<AST>> const & getArgs() const { return args; }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
@@ -215,6 +237,9 @@ public:
         Function(std::unique_ptr<AST> prototype, std::unique_ptr<AST> body) :
         prototype(std::move(prototype)), body(std::move(body)) { }
 
+        AST * getPrototype() const { return prototype.get(); }
+        AST * getBody() const { return body.get(); }
+
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
 private:
@@ -226,6 +251,8 @@ class Program : public AST
 public:
         Program(std::vector<std::unique_ptr<AST>> functions) :
         functions(std::move(functions)) { }
+
+        std::vector<std::unique_ptr<AST>> const & getFunctions() const { return functions; }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 

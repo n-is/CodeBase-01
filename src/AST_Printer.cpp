@@ -36,14 +36,17 @@ void AST_Printer::visit(Unary * ast_node)
 
 void AST_Printer::visit(Binary * ast_node)
 {
-
+        cout << " (";
+        ast_node->getLvalue()->Accept(*this);
+        ast_node->getToken()->Accept(*token_plotter);
+        ast_node->getRvalue()->Accept(*this);
+        cout << ") ";
 }
 
 void AST_Printer::visit(AssignmentStatement * ast_node)
 {
-        cout << ast_node->getLvalue();
-        auto assign_op = static_cast<AssignmentOperator *>(ast_node->getToken());        
-        assign_op->Accept(*token_plotter);
+        cout << ast_node->getLvalue() << " ";
+        ast_node->getToken()->Accept(*token_plotter);
         ast_node->getRvalue()->Accept(*this);
         cout << ";";
 }

@@ -101,7 +101,7 @@ std::unique_ptr<AST> Parser::mult_expr()
                    op_tok->getOperatorType() == OperatorType::DIVIDE ||
                    op_tok->getOperatorType() == OperatorType::MODULO) {
                         as_expected(TokenType::OPERATOR);
-                        earlier_expr = std::make_unique<Binary>(std::move(mult_expr()), *op_tok, std::move(earlier_expr));
+                        earlier_expr = std::make_unique<Binary>(std::move(earlier_expr), *op_tok, std::move(primary_expr()));
                 } else {
                         break;
                 }
@@ -117,7 +117,7 @@ std::unique_ptr<AST> Parser::add_expr()
                 if(op_tok->getOperatorType() == OperatorType::PLUS ||
                    op_tok->getOperatorType() == OperatorType::MINUS) {
                         as_expected(TokenType::OPERATOR);
-                        earlier_expr = std::make_unique<Binary>(std::move(add_expr()), *op_tok, std::move(earlier_expr));
+                        earlier_expr = std::make_unique<Binary>(std::move(earlier_expr), *op_tok, std::move(mult_expr()));
                 } else {
                         break;
                 }
@@ -135,7 +135,7 @@ std::unique_ptr<AST> Parser::relation_expr()
                    op_tok->getOperatorType() == OperatorType::GREATER ||
                    op_tok->getOperatorType() == OperatorType::GREATER_EQUALS) {
                         as_expected(TokenType::OPERATOR);
-                        earlier_expr = std::make_unique<Binary>(std::move(relation_expr()), *op_tok, std::move(earlier_expr));
+                        earlier_expr = std::make_unique<Binary>(std::move(earlier_expr), *op_tok, std::move(add_expr()));
                 } else {
                         break;
                 }
@@ -151,7 +151,7 @@ std::unique_ptr<AST> Parser::equality_expr()
                 if(op_tok->getOperatorType() == OperatorType::EQUALS ||
                    op_tok->getOperatorType() == OperatorType::NOT_EQUALS) {
                         as_expected(TokenType::OPERATOR);
-                        earlier_expr = std::make_unique<Binary>(std::move(equality_expr()), *op_tok, std::move(earlier_expr));
+                        earlier_expr = std::make_unique<Binary>(std::move(earlier_expr), *op_tok, std::move(relation_expr()));
                 } else {
                         break;
                 }
