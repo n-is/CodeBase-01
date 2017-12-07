@@ -10,55 +10,53 @@ static std::string getAssignmentStr(AssignmentType assign);
 void TokenPrinter::visit(Token * tok)
 {
         std::string tokValue = getTokenStr(tok->getTokenType());
-        std::cout << "(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(IntegerLiteral * tok)
 {
         int tokValue = tok->getValue();
-        std::cout << "(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(FloatLiteral * tok)
 {
         float tokValue = tok->getValue();
-        std::cout << "(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(Operator * tok)
 {
         std::string tokValue = getOperatorStr(tok->getOperatorType());
-        std::cout << "(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(AssignmentOperator * tok)
 {
         AssignmentType tokValue = tok->getType();
-        std::cout << "(" << getAssignmentStr(tokValue) << ")";
+        std::cout << getAssignmentStr(tokValue);
 }
 
 void TokenPrinter::visit(Identifier * tok)
 {
         std::string tokValue = tok->getValue();
-        std::cout << "(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(KeyWord * tok)
 {
         std::string tokValue = tok->getValue();
-        std::cout << "(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(DataType * tok)
 {
-        std::cout << "(";
         if(tok->getType() == Type::INT) {
                 std::cout << "int";
         }
         else if(tok->getType() == Type::FLOAT) {
                 std::cout << "float";
         }
-        std::cout << ")";
 }
 
 

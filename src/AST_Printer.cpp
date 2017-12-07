@@ -24,23 +24,25 @@ void AST_Printer::visit(Float * ast_node)
 
 void AST_Printer::visit(Id * ast_node)
 {
-        cout << "Id(" << ast_node->getValue() << ")";
+        cout << "(" << ast_node->getValue() << ")";
 }
 
 void AST_Printer::visit(Unary * ast_node)
 {
+        cout << "( ";
         auto tok = static_cast<Operator *>(ast_node->getToken());
         tok->Accept(*token_plotter);
         ast_node->getExpr()->Accept(*this);
+        cout << " )";
 }
 
 void AST_Printer::visit(Binary * ast_node)
 {
-        cout << " (";
+        cout << "( ";
         ast_node->getLvalue()->Accept(*this);
         ast_node->getToken()->Accept(*token_plotter);
         ast_node->getRvalue()->Accept(*this);
-        cout << ") ";
+        cout << " )";
 }
 
 void AST_Printer::visit(AssignmentStatement * ast_node)
@@ -53,17 +55,23 @@ void AST_Printer::visit(AssignmentStatement * ast_node)
 
 void AST_Printer::visit(IfStatement * ast_node)
 {
-
+        cout << "? ";
+        ast_node->getCondition()->Accept(*this);
+        ast_node->getBody()->Accept(*this);
 }
 
 void AST_Printer::visit(WhileStatement * ast_node)
 {
-
+        cout << "[ ";
+        ast_node->getCondition()->Accept(*this);
+        cout << " ]";
+        ast_node->getBody()->Accept(*this);
 }
 
 void AST_Printer::visit(ReturnStatement * ast_node)
 {
-
+        cout << "^ ";
+        ast_node->getExpr()->Accept(*this);
 }
 
 void AST_Printer::visit(Declaration * ast_node)
