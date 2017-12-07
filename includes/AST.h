@@ -200,7 +200,7 @@ public:
         static unsigned int scope;
 private:
         std::vector<std::unique_ptr<AST>> statement_list;
-        unsigned int scopeLevel;
+        const unsigned int scopeLevel;
 };
 
 class FuncCall : public AST

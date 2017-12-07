@@ -38,7 +38,7 @@ VPATH=%.cpp $(SRCDIR) ../ $(TSTDIR) $(UTILDIR)
 CC = gcc
 
 CXX = g++
-CXXFLAGS =  -Wall -g -std=c++14 -O0 -DTEST
+CXXFLAGS =  -Wall -Wextra -g -std=c++14 -O0 -DTEST
 
 OBJ = $(patsubst $(SRCDIR)/%.cpp, %.o, $(CXXSRC)) $(patsubst $(TSTDIR)/%.cpp, %.o, $(TSTSRC)) \
 	$(patsubst $(UTILDIR)/%.cpp, %.o, $(UTILSRC))
