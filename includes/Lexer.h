@@ -16,7 +16,8 @@ private:
         std::array<std::string, 2> types {
                 "int", "float"
         };
-        std::array<std::string, 0> keywords {
+        std::array<std::string, 1> keywords {
+                "task"
         };
         unsigned int file_lines_ = 0;
         std::vector<std::string> source_lines_;

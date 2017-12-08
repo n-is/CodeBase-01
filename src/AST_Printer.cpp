@@ -12,6 +12,11 @@ token_plotter(new TokenPrinter())
 
 }
 
+AST_Printer::~AST_Printer()
+{
+        cout << endl;
+}
+
 void AST_Printer::visit(Int * ast_node)
 {
         cout << ast_node->getValue();
@@ -102,26 +107,61 @@ void AST_Printer::visit(CompoundStatement * ast_node)
                 cout << endl;
         }
         printTabs(ast_node->getScopeLevel());
-        cout << "}\n";
+        cout << "}";
 }
 
 void AST_Printer::visit(FuncCall * ast_node)
 {
+        cout << ast_node->getFuncName() << "(";
+        int numberOfArgs = ast_node->getArgs().size();
+        for(auto& arg : ast_node->getArgs()) {
+                if(numberOfArgs--) {
+                        arg->Accept(*this);
+                }
+                if(numberOfArgs > 0) {
+                        cout << ", ";
+                }
+        }
+        cout << ")";
+}
 
+void AST_Printer::visit(Parameter * ast_node)
+{
+        auto tok = static_cast<DataType *>(ast_node->getToken());
+        tok->Accept(*token_plotter);
+        cout << " " << ast_node->getVar();
 }
 
 void AST_Printer::visit(Prototype * ast_node)
 {
-
+        cout << "task " << ast_node->getFuncName() << "(";
+        int numberOfArgs = ast_node->getArgs().size();
+        for(auto& arg : ast_node->getArgs()) {
+                if(numberOfArgs--) {
+                        arg->Accept(*this);
+                }
+                if(numberOfArgs > 0) {
+                        cout << ", ";
+                }
+        }
+        cout << ")";
 }
 
 void AST_Printer::visit(Function * ast_node)
 {
-
+        ast_node->getPrototype()->Accept(*this);
+        cout << " ";
+        ast_node->getBody()->Accept(*this);
 }
 
 void AST_Printer::visit(Program * ast_node)
 {
-
+        int numberOfFuncs = ast_node->getFunctions().size();
+        for(auto& arg : ast_node->getFunctions()) {
+                if(numberOfFuncs--) {
+                        arg->Accept(*this);
+                }
+                cout << endl << endl;
+        }
 }
 

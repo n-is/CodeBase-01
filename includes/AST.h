@@ -219,6 +219,22 @@ private:
         std::vector<std::unique_ptr<AST>> args;
 };
 
+class Parameter : public AST
+{
+public:
+        Parameter(DataType & type, std::string & var):
+        type(type), var(var) { }
+
+        Token * getToken() { return &type; }
+        std::string getVar() const { return var; }
+
+        void Accept(AST_Visitor & visitor) { visitor.visit(this); }
+
+private:
+        DataType type;
+        std::string var;
+};
+
 class Prototype : public AST
 {
 public:
@@ -256,8 +272,7 @@ public:
         Program(std::vector<std::unique_ptr<AST>> functions) :
         functions(std::move(functions)) { }
 
-        std::vector<std::unique_ptr<AST>> const & getFunctions() const { return functions; 
-        }
+        std::vector<std::unique_ptr<AST>> const & getFunctions() const { return functions; }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 

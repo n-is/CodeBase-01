@@ -9,9 +9,10 @@
         supported by our language at the moment.
 */
 
-{
+task hello(int a) {
         a = 1 - 5 + 7;
         b = a + 2;
+        z = hello(2);
         [ a ] a -= 1;
         ? a == b int k;
         ? a != 1 {
@@ -19,4 +20,8 @@
                 c = a != b > 6;
                 { float j,k; }
         }
+}
+
+task hi() {
+        int bye;
 }

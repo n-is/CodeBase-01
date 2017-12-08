@@ -44,6 +44,11 @@ private:
 
         std::unique_ptr<AST> statement();
         std::unique_ptr<AST> body();
+
+        std::unique_ptr<AST> parameter();
+        std::unique_ptr<AST> prototype();
+        std::unique_ptr<AST> function();
+        std::unique_ptr<AST> program();
 };
 
 #endif // PARSER_H_

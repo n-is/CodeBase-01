@@ -18,7 +18,7 @@ Parser::~Parser()
 
 std::unique_ptr<AST> Parser::parse()
 {
-        return body();
+        return program();
 }
 
 void Parser::as_expected(TokenType t)
@@ -26,7 +26,7 @@ void Parser::as_expected(TokenType t)
         if(curr_tok_->getTokenType() == t) {
                 curr_tok_ = lex_.getNextToken();
         } else {
-                raise(Error::TokenError, "Unrecognized Token", lex_.getCurrentLineNumber());
+                raise(Error::TokenError, "Unrecognized Token", lex_.getCurrentLineNumber() + 1);
         }
 }
 
@@ -37,7 +37,19 @@ std::unique_ptr<AST> Parser::identifier()
         std::string val = i->getValue();
         as_expected(TokenType::IDENTIFIER);
         if(curr_tok_->getTokenType() == TokenType::LPAREN) {
-                // return function call here;
+                as_expected(TokenType::LPAREN);
+                std::vector<std::unique_ptr<AST>> args;
+                while(1) {
+                        if(auto a = expr()) {
+                                args.push_back(std::move(a));
+                        }
+                        if(curr_tok_->getTokenType() != TokenType::COMMA) {
+                                break;
+                        }
+                        as_expected(TokenType::COMMA);
+                }
+                as_expected(TokenType::RPAREN);
+                return std::make_unique<FuncCall>(val, std::move(args));
         }
         return std::make_unique<Id>(val);
 }
@@ -259,4 +271,63 @@ std::unique_ptr<AST> Parser::body()
         as_expected(TokenType::RCURLY);
         --CompoundStatement::scope;
         return std::make_unique<CompoundStatement>(std::move(statement_list));
+}
+
+std::unique_ptr<AST> Parser::parameter()
+{
+        if(curr_tok_->getTokenType() != TokenType::DATA_TYPE) {
+                return nullptr;
+        }
+        auto typeTok = static_cast<DataType *>(curr_tok_);
+        as_expected(TokenType::DATA_TYPE);
+        auto var = static_cast<Identifier *>(curr_tok_);
+        as_expected(TokenType::IDENTIFIER);
+        std::string var_name = var->getValue();
+        return std::make_unique<Parameter>(*typeTok, var_name);
+}
+
+std::unique_ptr<AST> Parser::prototype()
+{
+        assert(curr_tok_->getTokenType() == TokenType::KEYWORD);
+        auto tok = static_cast<KeyWord *>(curr_tok_);
+        as_expected(TokenType::KEYWORD);
+        if(tok->getValue() != "task") {
+                raise(Error::SyntaxError, "Expected 'task' keyword here", lex_.getCurrentLineNumber() + 1);
+        }
+        auto func_name = static_cast<Identifier *>(curr_tok_);
+        as_expected(TokenType::IDENTIFIER);
+        std::string name = func_name->getValue();
+
+        as_expected(TokenType::LPAREN);
+        std::vector<std::unique_ptr<AST>> args;
+        while(1) {
+                if(auto a = parameter()) {
+                        args.push_back(std::move(a));
+                }
+                if(curr_tok_->getTokenType() != TokenType::COMMA) {
+                        break;
+                }
+                as_expected(TokenType::COMMA);
+        }
+        as_expected(TokenType::RPAREN);
+        return std::make_unique<Prototype>(name, std::move(args));
+}
+
+std::unique_ptr<AST> Parser::function()
+{
+        if(curr_tok_->getTokenType() == TokenType::KEYWORD) {
+                auto proto = prototype();
+                auto func_body = body();
+                return std::make_unique<Function>(std::move(proto), std::move(func_body));
+        }
+        return nullptr;
+}
+
+std::unique_ptr<AST> Parser::program()
+{
+        std::vector<std::unique_ptr<AST>> functions;
+        while(auto a = function()) {
+                functions.push_back(std::move(a));
+        }
+        return std::make_unique<Program>(std::move(functions));
 }

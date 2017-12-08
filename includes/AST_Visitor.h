@@ -16,6 +16,7 @@ class ReturnStatement;
 class Declaration;
 class CompoundStatement;
 class FuncCall;
+class Parameter;
 class Prototype;
 class Function;
 class Program;
@@ -36,6 +37,7 @@ public:
         virtual void visit(Declaration *) = 0;
         virtual void visit(CompoundStatement *) = 0;
         virtual void visit(FuncCall *) = 0;
+        virtual void visit(Parameter *) = 0;
         virtual void visit(Prototype *) = 0;
         virtual void visit(Function *) = 0;
         virtual void visit(Program *) = 0;
@@ -47,6 +49,7 @@ public:
         std::unique_ptr<TokenVisitor> token_plotter;
 
         AST_Printer();
+        ~AST_Printer();
 
         void visit(Int *);
         void visit(Float *);
@@ -60,6 +63,7 @@ public:
         void visit(Declaration *);
         void visit(CompoundStatement *);
         void visit(FuncCall *);
+        void visit(Parameter *);
         void visit(Prototype *);
         void visit(Function *);
         void visit(Program *);
