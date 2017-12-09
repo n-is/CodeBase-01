@@ -6,54 +6,57 @@
 static std::string getTokenStr(TokenType t);
 static std::string getOperatorStr(OperatorType op);
 static std::string getAssignmentStr(AssignmentType assign);
-static std::string getRelationStr(RelationType rltn);
 
 void TokenPrinter::visit(Token * tok)
 {
         std::string tokValue = getTokenStr(tok->getTokenType());
-        std::cout << "Token(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(IntegerLiteral * tok)
 {
         int tokValue = tok->getValue();
-        std::cout << "Int(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(FloatLiteral * tok)
 {
         float tokValue = tok->getValue();
-        std::cout << "Float(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(Operator * tok)
 {
         std::string tokValue = getOperatorStr(tok->getOperatorType());
-        std::cout << "Operator(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(AssignmentOperator * tok)
 {
         AssignmentType tokValue = tok->getType();
-        std::cout << "Assignment(" << getAssignmentStr(tokValue) << ")";
-}
-
-void TokenPrinter::visit(RelationOperator * tok)
-{
-        RelationType tokValue = tok->getType();
-        std::cout << "Relation(" << getRelationStr(tokValue) << ")";
+        std::cout << getAssignmentStr(tokValue);
 }
 
 void TokenPrinter::visit(Identifier * tok)
 {
         std::string tokValue = tok->getValue();
-        std::cout << "Identifier(" << tokValue << ")";
+        std::cout << tokValue;
 }
 
 void TokenPrinter::visit(KeyWord * tok)
 {
         std::string tokValue = tok->getValue();
-        std::cout << "KeyWord(" << tokValue << ")";
+        std::cout << tokValue;
+}
+
+void TokenPrinter::visit(DataType * tok)
+{
+        if(tok->getType() == Type::INT) {
+                std::cout << "int";
+        }
+        else if(tok->getType() == Type::FLOAT) {
+                std::cout << "float";
+        }
 }
 
 
@@ -157,6 +160,18 @@ static std::string getOperatorStr(OperatorType op)
         else if(op == OperatorType::NOT_EQUALS) {
                 return "!=";
         }
+        else if (op == OperatorType::LESSER) {
+                return "<";
+        }
+        else if (op == OperatorType::GREATER) {
+                return ">";
+        }
+        else if (op == OperatorType::LESSER_EQUALS) {
+                return "<=";
+        }
+        else if (op == OperatorType::GREATER_EQUALS) {
+                return ">=";
+        }
         return "None Operator";
 }
 
@@ -183,25 +198,5 @@ static std::string getAssignmentStr(AssignmentType assign)
                 } break;
                 default :
                         return "None Operator";
-        }
-}
-
-static std::string getRelationStr(RelationType rltn)
-{
-        switch(rltn) {
-                case RelationType::LESSER : {
-                        return "<";
-                } break;
-                case RelationType::GREATER : {
-                        return ">";
-                } break;
-                case RelationType::LESSER_EQUALS : {
-                        return "<=";
-                } break;
-                case RelationType::GREATER_EQUALS : {
-                        return ">=";
-                } break;
-                default :
-                        return "None Relation Operator";
         }
 }

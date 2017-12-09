@@ -36,3 +36,11 @@ int raise(Error e, string message)
         cerr << getErrorToken(e) << ": " << message << endl;
         exit(1);
 }
+
+
+int raise(Error e, std::string message, int atLine)
+{
+        cerr << "Error at or near line : " << atLine << endl;
+        cerr << getErrorToken(e) << ": " << message << endl;
+        exit(1);
+}

@@ -32,6 +32,7 @@ enum class TokenType
         IDENTIFIER,
         OPERATOR,
         KEYWORD,
+        DATA_TYPE,
 
         EOS
 };
@@ -108,11 +109,15 @@ enum class OperatorType
         DIVIDE,
         MODULO,
 
+        LESSER,
+        GREATER,
+        LESSER_EQUALS,
+        GREATER_EQUALS,
+
         EQUALS,
         NOT_EQUALS,
 
-        ASSIGNMENT,
-        RELATION
+        ASSIGNMENT
 };
 
 class Operator : public Token
@@ -155,29 +160,6 @@ public:
         void Accept(TokenVisitor & visitor) { visitor.visit(this); }
 };
 
-enum class RelationType
-{
-        LESSER,
-        GREATER,
-        LESSER_EQUALS,
-        GREATER_EQUALS
-};
-
-class RelationOperator : public Operator
-{
-private:
-        RelationType relationType;
-public:
-        RelationOperator(RelationType type) :
-        Operator(OperatorType::RELATION), relationType(type) { }
-
-        RelationType getType() {
-                return relationType;
-        }
-
-        void Accept(TokenVisitor & visitor) { visitor.visit(this); }
-};
-
 class Identifier : public Token
 {
 public:
@@ -208,6 +190,27 @@ public:
 
 private:
         std::string value;
+};
+
+enum class Type
+{
+        INT,
+        FLOAT
+};
+
+class DataType : public Token
+{
+public:
+        DataType(Type t) :
+        Token(TokenType::DATA_TYPE), type(t) { }
+
+        Type getType() {
+                return type;
+        }
+
+        void Accept(TokenVisitor & visitor) { visitor.visit(this); }
+private:
+        Type type;
 };
 
 #endif /* !TOKEN_H_ */

@@ -207,18 +207,18 @@ Token * Lexer::getNextToken()
                                 }
                                 else if(curr_char_ == '=') {
                                         advance();
-                                        return new RelationOperator(RelationType::LESSER_EQUALS);
+                                        return new Operator(OperatorType::LESSER_EQUALS);
                                 }
-                                return new RelationOperator(RelationType::LESSER);
+                                return new Operator(OperatorType::LESSER);
                         }break;
 
                         case '>' : {
                                 advance();
                                 if(curr_char_ == '=') {
                                         advance();
-                                        return new RelationOperator(RelationType::GREATER_EQUALS);
+                                        return new Operator(OperatorType::GREATER_EQUALS);
                                 }
-                                return new RelationOperator(RelationType::GREATER);
+                                return new Operator(OperatorType::GREATER);
                         }break;
 
                         case '?' : {
@@ -289,6 +289,16 @@ Token * Lexer::getWord()
         for(std::string w : keywords) {
                 if(w == word)
                         return new KeyWord(word);
+        }
+        for(std::string w : types) {
+                if(w == word) {
+                        if(w == "int") {
+                                return new DataType(Type::INT);
+                        }
+                        else if(w == "float") {
+                                return new DataType(Type::FLOAT);
+                        }
+                }
         }
         return new Identifier(word);
 }

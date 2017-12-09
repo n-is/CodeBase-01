@@ -13,8 +13,10 @@ public:
         unsigned int getCurrentLineNumber() const;
 
 private:
-        std::array<std::string, 2> keywords {
+        std::array<std::string, 2> types {
                 "int", "float"
+        };
+        std::array<std::string, 0> keywords {
         };
         unsigned int file_lines_ = 0;
         std::vector<std::string> source_lines_;

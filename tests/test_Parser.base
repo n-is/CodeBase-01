@@ -1,0 +1,22 @@
+/*
+        This file is for testing the Parser class.
+        So, don't make any changes to this file
+        until it is absolutely required and you
+        are absolutely sure.
+*/
+/*
+        This file contains the code that is actually
+        supported by our language at the moment.
+*/
+
+{
+        a = 1 - 5 + 7;
+        b = a + 2;
+        [ a ] a -= 1;
+        ? a == b int k;
+        ? a != 1 {
+                int c;
+                c = a != b > 6;
+                { float j,k; }
+        }
+}
