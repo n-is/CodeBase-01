@@ -13,8 +13,8 @@
 We are learning to write a compiler. We will create a single-pass compiler(or interpreter) initially. It will contain a Lexer, a recursive-descent Parser that creates an Abstract Syntax Tree(AST) and multiple visitor patterns that visit the AST and perform the specific task like pretty-printing, creating symbol table, semantic analysis and so on.
 </p>
 
-The compiler will initially have only data types and not any data structures. The context-free grammer(Backaus-naur form) of the language can be found in docs/syntax_specification.txt and the tokens recognized by the language along with the use case can be found in [docs/language_tokens.md](languages_tokens.md#top).
-The Git Help page can be found in [docs/git_help.md](git_help.md#top).
+The compiler will initially have only data types and not any data structures. The context-free grammer(Backaus-naur form) of the language can be found in docs/syntax_specification.txt and the tokens recognized by the language along with the use case can be found in [docs/language_tokens.md](docs/language_tokens.md).
+The Git Help page can be found in [docs/git_help.md](docs/git_help.md).
 
 
 <b><i>Future Improvements : </b></i>
