@@ -144,7 +144,9 @@ void AST_Printer::visit(Prototype * ast_node)
                         cout << ", ";
                 }
         }
-        cout << ")";
+        cout << ") : ";
+        auto tok = static_cast<DataType *>(ast_node->getToken());
+        tok->Accept(*token_plotter);
 }
 
 void AST_Printer::visit(Function * ast_node)
@@ -164,4 +166,3 @@ void AST_Printer::visit(Program * ast_node)
                 cout << endl << endl;
         }
 }
-

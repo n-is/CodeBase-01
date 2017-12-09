@@ -149,6 +149,8 @@ void C_CodeGen::visit(Parameter * ast_node)
 void C_CodeGen::visit(Prototype * ast_node)
 {
         // source_output << "task ";
+        auto tok = static_cast<DataType *>(ast_node->getToken());
+        source_output << getStr(tok->getType()) << " ";
         source_output << ast_node->getFuncName() << "(";
         int numberOfArgs = ast_node->getArgs().size();
         for(auto& arg : ast_node->getArgs()) {

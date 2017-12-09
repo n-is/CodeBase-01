@@ -310,7 +310,13 @@ std::unique_ptr<AST> Parser::prototype()
                 as_expected(TokenType::COMMA);
         }
         as_expected(TokenType::RPAREN);
-        return std::make_unique<Prototype>(name, std::move(args));
+        as_expected(TokenType::COLON);
+
+        assert(curr_tok_->getTokenType() == TokenType::DATA_TYPE);
+        auto typeTok = static_cast<DataType *>(curr_tok_);
+        as_expected(TokenType::DATA_TYPE);
+
+        return std::make_unique<Prototype>(*typeTok, name, std::move(args));
 }
 
 std::unique_ptr<AST> Parser::function()

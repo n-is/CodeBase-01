@@ -22,8 +22,8 @@ TEST_CASE("Testing the C code generator", "[codegen]")
 {
         std::unique_ptr<Lexer> lex(new Lexer("test_Parser.base"));
         std::unique_ptr<Parser> pas(new Parser(*lex));
-        std::unique_ptr<AST_Visitor> codegen(new C_CodeGen("test_Parser.c"));
-
+        
         auto result = pas->parse();
+        std::unique_ptr<AST_Visitor> codegen(new C_CodeGen("test_Parser.c"));
         result->Accept(*codegen);
 }

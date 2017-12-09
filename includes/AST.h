@@ -238,15 +238,17 @@ private:
 class Prototype : public AST
 {
 public:
-        Prototype(std::string func_name, std::vector<std::unique_ptr<AST>> args) :
-        func_name(func_name), args(std::move(args)) { }
+        Prototype(DataType & type, std::string func_name, std::vector<std::unique_ptr<AST>> args) :
+        type(type), func_name(func_name), args(std::move(args)) { }
 
+        Token * getToken() { return & type; }
         std::string getFuncName() const { return func_name; }
         std::vector<std::unique_ptr<AST>> const & getArgs() const { return args; }
 
         void Accept(AST_Visitor & visitor) { visitor.visit(this); }
 
 private:
+        DataType type;
         std::string func_name;
         std::vector<std::unique_ptr<AST>> args;
 };

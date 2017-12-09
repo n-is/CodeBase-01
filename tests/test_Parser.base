@@ -9,21 +9,17 @@
         supported by our language at the moment.
 */
 
-task hello(int a) {
-        int a,b,k,z;
-        a = 1 - 5 + 7;
-        b = a + 2;
-        z = hello(2);
-        [ a ] a -= 1;
-        ? a == b k += 1;
-        ? a != 1 {
-                int c;
-                c = a != b > 6;
-                { float j,k; }
-        }
-        ^ 0;
+task fact(int n) : int
+{
+        ? n < 0 ^ -1 ;
+        ? n < 2 ^ 1 ;
+        ^ n * fact(n - 1);
 }
 
-task hi() {
-        int bye;
+task main() : int
+{
+        int a;
+        a = 7;
+        a = fact(a);
+        ^ 0;
 }
