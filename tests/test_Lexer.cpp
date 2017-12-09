@@ -59,4 +59,12 @@ TEST_CASE("Checking Token Factory (Lexer) class", "[Lexer]")
 
         tok.reset(lex->getNextToken());
         REQUIRE(tok->getTokenType() == TokenType::COLON);
+        
+        tok.reset(lex->getNextToken());
+        REQUIRE(tok->getTokenType() == TokenType::QUESTION);
+
+        tok.reset(lex->getNextToken());
+        REQUIRE(tok->getTokenType() == TokenType::IDENTIFIER);
+        auto a4 = static_cast<Identifier *>(tok.release());
+        REQUIRE(a4->getValue() == "n");
 }
