@@ -67,19 +67,4 @@ TEST_CASE("Checking Token Factory (Lexer) class", "[Lexer]")
         REQUIRE(tok->getTokenType() == TokenType::IDENTIFIER);
         auto a4 = static_cast<Identifier *>(tok.release());
         REQUIRE(a4->getValue() == "n");
-
-        tok.reset(lex->getNextToken());
-        REQUIRE(tok->getTokenType() == TokenType::OPERATOR);
-        auto a5 = static_cast<Operator *>(tok.release());
-        REQUIRE(a5->getOperatorType() == OperatorType::RELATION);
-        auto a6 = static_cast<RelationOperator *>(a5);
-        REQUIRE(a6->getType() == RelationType::LESSER);
-
-
-        tok.reset(lex->getNextToken());
-        REQUIRE(tok->getTokenType() == TokenType::LITERAL);
-        auto a7 = static_cast<Literal *>(tok.release());
-        REQUIRE(a7->getLiteralType() == LiteralType::INTEGER);
-        auto a8 = static_cast<IntegerLiteral *>(a7);
-        REQUIRE(a8->getValue() == 0);
 }
