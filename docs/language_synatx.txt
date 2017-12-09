@@ -1,0 +1,90 @@
+SEMICOLON -> ';'  -> It is a statement terminator.Each individual statement must end with a semicolon.
+:  -> no special identity till now
+,  -> 
+(  ->
+)  ->
+{  -> identifies the beginning of target statement in while loop
+}  -> identifies the end of target statement in while loop
+.  ->
+[  -> identifies the beginning of the condition in while loop
+] ->  identifies the end of the condition in while loop
+?  ->
+!  ->
+
+^  -> 
+<- ->
+-> ->
+LITERAL    -> Literals are the constant value. They are of two types : an integer literal and a floating literal. An integer literal can be a decimal constant.Similarly, a floating point literal has an integer part, a decimal point and a fractional part.
+
+IDENTIFIER -> It is a name used to identify a variable ( function and other user defined item after future improvements). An identifier starts with letter A to Z or a to z,followed by letters and digits. The identifier name cannot start with a digit.
+
+KEYWORD    -> These are the reserved words and the user is not desired to use them as identifiers or literals. Eg, int, float cannot be used as identifier.
+
+DATA_TYPE  ->
+EOS        ->end of source
+ 
+OPERATORS: An operator is a symbol that tells the compiler to perform specific mathematical or logical functions. There are various types of operators.They are described as follows.
+ARITHMETIC OPERATORS
+PLUS - '+' - adds two operands
+MINUS -'-' - subtracts second operand from the first
+MULTIPLY - '*' - multiplies both operands
+DIVIDE - '/' - divides numerator by de-numerator
+MODULO - '%' - returns the remainder after division
+
+ASSIGNMENT OPERATORS
+EQUALS - '=' ->Simple assignment operator. Assigns values from right side operands to left side operand. Eg, C = A+B will assign the value of A + B to C.
+PLUS_EQ - '+=' -> Add AND assignment operator. It adds the right operand to the left operand and assigns the result to the left operand. Eg, B += A is equivalent to B = B+A
+MINUS_EQ - '-=' ->Subtract AND assignment operator. It subtracts the right operand from the left operand and assigns the result to the left operand.Eg, B -= A is equivalent to B = B-A
+MULTIPLY_EQ - '*=' ->Multiply AND assignment operator. It multiplies the right operand with the left operand and assigns the result to the left operand.Eg, C *= A is equivalent to C = C*A
+DIVIDE_EQ -> Divide AND assignment operator. It divides the left operand with the right operand and assigns the result to the left operand.Eg, C /A is equivalent to C = C/A
+MODULO_EQ ->Modulus AND assignment operator. It takes modulus using two operands and assigns the result to the left operand.Eg, C %= A is equivalent to C = C%A
+
+RELATIONAL OPERATORS
+LESSER - '<' -> Checks if the value of left operand is less than the value of right operand. If yes, then the condition becomes true.
+GREATER - '>' -> Checks if the value of left operand is greater than the value of right operand. If yes, then the condition becomes true.
+LESSER_EQUALS - '<=' -> Checks if the value of left operand is less than or equal to the value of right operand. If yes, then the condition becomes true.
+GREATER_EQUALS -'>=' -> Checks if the value of left operator is greater than or equal to the value of right operand. If yes, then the condition becomes true.
+NOT_EQUALS -'!=' -> This operator shall be listed in our compiler after few improvements. It will be made to check if the values of two operands are equal or not. If the values are not equal, then the condition becomes true. 
+EQUALS_EQUALS - '==' ->Checks if the vlaues of two operands are equal or not. If yes, then the condition becomes true.
+
+#DECISION MAKING
+Decision making structures have two parts: condition and statement. Initially, the conditional expression is evaluated. If the condition returns true value, a statement or bunch of statements are evaluated. If the conditional expression returns a false value, other statements are evaluated. This program assumes any non-zero value as true, and zero as false.
+The basic structure of decision making statements is given below:
+The condition is identified if '?' is found. Anything that follows '?' is considered as the condition for decision making structure. The newline character itself identifies the end of the condition. If the condition is true, the statements after '^' is evaluated.
+Syntax:
+? boolean_expression
+    ^ statement(s) will execute if the boolean expression is true;
+
+
+'!' -> If the condition in '?' statement is not true, the statements after '!' are evaluated.
+Syntax:
+? boolean_expression
+    ^ statement(s) will execute if the boolean expression is true;
+! (boolean_expression not required)
+    ^ statement(s) will execute if the boolean expression is false;
+
+'!?' -> If there are different conditions for different expressions, they can be evaluated seperately by using '!?' statement. This statement provides user the platform to evaluate different conditions. Ihe the first condition returns false, then the other condition is evaluated and so on.
+Syntax:
+? boolean_expression_1
+    ^ executes when the boolean expression 1 is true;
+!? boolean_expression_2
+    ^ executes when the boolean expression 2 is true;
+!? boolean_expression_3
+    ^executes when the boolean expression 3 is true;
+!
+    ^executes when none of the above condition is true;
+
+
+
+
+#LOOPS
+Loops are used when a block of code needs to be executed several number of times.
+while loop: This loop repeatedly executes a target statement as long as a given condition is true. The condition may be any expression, and true is any non-zero value. The loop iterates while the condition is true. When the condition becomes false, the program control passes to the line immediately following the loop.
+
+Syntax:
+
+[condition] 
+{
+     statement(s);
+}
+            
