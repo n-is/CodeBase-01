@@ -2,6 +2,7 @@
 #define AST_VISITOR_H_
 
 #include <memory>
+#include <fstream>
 #include "TokenVisitor.h"
 
 class Int;
@@ -46,10 +47,37 @@ public:
 class AST_Printer : public AST_Visitor
 {
 public:
-        std::unique_ptr<TokenVisitor> token_plotter;
+        AST_Printer();
 
+        void visit(Int *);
+        void visit(Float *);
+        void visit(Id *);
+        void visit(Unary *);
+        void visit(Binary *);
+        void visit(AssignmentStatement *);
+        void visit(IfStatement *);
+        void visit(WhileStatement *);
+        void visit(ReturnStatement *);
+        void visit(Declaration *);
+        void visit(CompoundStatement *);
+        void visit(FuncCall *);
+        void visit(Prototype *);
+        void visit(Function *);
+        void visit(Program *);
+private:
+        std::unique_ptr<TokenVisitor> token_plotter;
+};
+
+<<<<<<< HEAD
         AST_Printer();
         ~AST_Printer();
+=======
+class C_CodeGen : public AST_Visitor
+{
+public:
+        C_CodeGen(const char * file_name);
+        ~C_CodeGen();
+>>>>>>> C_CodeGen
 
         void visit(Int *);
         void visit(Float *);
@@ -67,6 +95,9 @@ public:
         void visit(Prototype *);
         void visit(Function *);
         void visit(Program *);
+private:
+        std::unique_ptr<TokenVisitor> token_plotter;
+        std::ofstream source_output;
 };
 
 #endif

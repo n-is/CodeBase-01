@@ -10,16 +10,18 @@
 */
 
 task hello(int a) {
+        int a,b,k;
         a = 1 - 5 + 7;
         b = a + 2;
         z = hello(2);
         [ a ] a -= 1;
-        ? a == b int k;
+        ? a == b k += 1;
         ? a != 1 {
                 int c;
                 c = a != b > 6;
                 { float j,k; }
         }
+        ^ 0;
 }
 
 task hi() {

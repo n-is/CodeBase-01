@@ -13,6 +13,7 @@ CXXSRC = \
 	$(SRCDIR)/Lexer.cpp \
 	$(SRCDIR)/Parser.cpp \
 	$(SRCDIR)/AST_Printer.cpp \
+	$(SRCDIR)/C_CodeGen.cpp \
 
 TSTSRC = \
 	$(TSTDIR)/main_test.cpp \
@@ -24,16 +25,20 @@ TSTSRC = \
 UTILSRC = \
 	$(UTILDIR)/Error.cpp \
 
+HELPERSRC = \
+	$(HELPERDIR)/tokensToStrings.cpp \
+
 INCDIR = ../includes
 SRCDIR = ../src
 TSTDIR = ../tests
 UTILDIR = ../utils
+HELPERDIR = ../helpers
 
 PREFIX = /usr/local
 
 ###############################################################################################
 
-VPATH=%.cpp $(SRCDIR) ../ $(TSTDIR) $(UTILDIR)
+VPATH=%.cpp $(SRCDIR) ../ $(TSTDIR) $(UTILDIR) $(HELPERDIR)
 
 CC = gcc
 
@@ -41,7 +46,7 @@ CXX = g++
 CXXFLAGS =  -Wall -Wextra -g -std=c++14 -O0 -DTEST
 
 OBJ = $(patsubst $(SRCDIR)/%.cpp, %.o, $(CXXSRC)) $(patsubst $(TSTDIR)/%.cpp, %.o, $(TSTSRC)) \
-	$(patsubst $(UTILDIR)/%.cpp, %.o, $(UTILSRC))
+	$(patsubst $(UTILDIR)/%.cpp, %.o, $(UTILSRC)) $(patsubst $(HELPERDIR)/%.cpp, %.o, $(HELPERSRC))
 DEP = $(OBJ:.o=.d)
 
 all : $(TARGET)
@@ -75,6 +80,10 @@ install :$(TARGET)
 	$(CPP) $< -MM -MT $(@:.d=.o) >$@
 
 %.d : $(UTILDIR)/%.cpp
+	@ echo "Creating dependency file for "$<
+	$(CPP) $< -MM -MT $(@:.d=.o) >$@
+
+%.d : $(HELPERDIR)/%.cpp
 	@ echo "Creating dependency file for "$<
 	$(CPP) $< -MM -MT $(@:.d=.o) >$@
 
