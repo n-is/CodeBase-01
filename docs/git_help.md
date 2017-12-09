@@ -33,8 +33,8 @@ Using `git remote -v` shows you the URLs that Git has stored for the shortname t
 ## Adding a remote 
 To add a new remote , we should use the `git remote add` command on the terminal in the directory that your repository is stored at.
 This command takes two arguments :
-> A remote name, for example, `upstream`
-> A remote URL, for example, `https://github.com/user/repo.git`
+A remote name, for example, `upstream`
+A remote URL, for example, `https://github.com/user/repo.git`
 
 Example: Adding a new remote named upstream for a given <url>
 ```git remote add upstream <url>```
