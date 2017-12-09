@@ -2,7 +2,6 @@
 #include "../includes/AST.h"
 #include "../helpers/tokensToStrings.h"
 
-#include <iostream>
 #include <fstream>
 
 using std::endl;
@@ -127,21 +126,56 @@ void C_CodeGen::visit(CompoundStatement * ast_node)
 
 void C_CodeGen::visit(FuncCall * ast_node)
 {
+        source_output << ast_node->getFuncName() << "(";
+        int numberOfArgs = ast_node->getArgs().size();
+        for(auto& arg : ast_node->getArgs()) {
+                if(numberOfArgs--) {
+                        arg->Accept(*this);
+                }
+                if(numberOfArgs > 0) {
+                        source_output << ", ";
+                }
+        }
+        source_output << ")";
+}
 
+void C_CodeGen::visit(Parameter * ast_node)
+{
+        auto tok = static_cast<DataType *>(ast_node->getToken());
+        source_output << getStr(tok->getType());
+        source_output << " " << ast_node->getVar();
 }
 
 void C_CodeGen::visit(Prototype * ast_node)
 {
-
+        // source_output << "task ";
+        source_output << ast_node->getFuncName() << "(";
+        int numberOfArgs = ast_node->getArgs().size();
+        for(auto& arg : ast_node->getArgs()) {
+                if(numberOfArgs--) {
+                        arg->Accept(*this);
+                }
+                if(numberOfArgs > 0) {
+                        source_output << ", ";
+                }
+        }
+        source_output << ")";
 }
 
 void C_CodeGen::visit(Function * ast_node)
 {
-
+        ast_node->getPrototype()->Accept(*this);
+        source_output << " ";
+        ast_node->getBody()->Accept(*this);
 }
 
 void C_CodeGen::visit(Program * ast_node)
 {
-
+        int numberOfFuncs = ast_node->getFunctions().size();
+        for(auto& arg : ast_node->getFunctions()) {
+                if(numberOfFuncs--) {
+                        arg->Accept(*this);
+                }
+                source_output << endl << endl;
+        }
 }
-

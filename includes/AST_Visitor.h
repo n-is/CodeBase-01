@@ -48,6 +48,7 @@ class AST_Printer : public AST_Visitor
 {
 public:
         AST_Printer();
+        ~AST_Printer();
 
         void visit(Int *);
         void visit(Float *);
@@ -61,6 +62,7 @@ public:
         void visit(Declaration *);
         void visit(CompoundStatement *);
         void visit(FuncCall *);
+        void visit(Parameter *);
         void visit(Prototype *);
         void visit(Function *);
         void visit(Program *);
@@ -68,16 +70,11 @@ private:
         std::unique_ptr<TokenVisitor> token_plotter;
 };
 
-<<<<<<< HEAD
-        AST_Printer();
-        ~AST_Printer();
-=======
 class C_CodeGen : public AST_Visitor
 {
 public:
         C_CodeGen(const char * file_name);
         ~C_CodeGen();
->>>>>>> C_CodeGen
 
         void visit(Int *);
         void visit(Float *);

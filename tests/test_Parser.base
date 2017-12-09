@@ -10,7 +10,7 @@
 */
 
 task hello(int a) {
-        int a,b,k;
+        int a,b,k,z;
         a = 1 - 5 + 7;
         b = a + 2;
         z = hello(2);
